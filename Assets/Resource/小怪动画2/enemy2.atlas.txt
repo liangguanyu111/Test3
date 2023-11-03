@@ -1,0 +1,167 @@
+
+enemy2.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body1
+  rotate: false
+  xy: 273, 391
+  size: 49, 71
+  orig: 49, 71
+  offset: 0, 0
+  index: -1
+bow1
+  rotate: false
+  xy: 2, 279
+  size: 66, 225
+  orig: 66, 225
+  offset: 0, 0
+  index: -1
+bow2
+  rotate: false
+  xy: 46, 107
+  size: 4, 170
+  orig: 4, 170
+  offset: 0, 0
+  index: -1
+bow3
+  rotate: true
+  xy: 2, 97
+  size: 180, 42
+  orig: 180, 42
+  offset: 0, 0
+  index: -1
+canying1
+  rotate: true
+  xy: 70, 269
+  size: 37, 87
+  orig: 37, 87
+  offset: 0, 0
+  index: -1
+eye1
+  rotate: false
+  xy: 411, 447
+  size: 30, 23
+  orig: 30, 23
+  offset: 0, 0
+  index: -1
+eye2
+  rotate: true
+  xy: 131, 237
+  size: 30, 24
+  orig: 30, 24
+  offset: 0, 0
+  index: -1
+jiandai1
+  rotate: true
+  xy: 174, 464
+  size: 40, 156
+  orig: 40, 156
+  offset: 0, 0
+  index: -1
+l_hand1
+  rotate: false
+  xy: 347, 450
+  size: 62, 20
+  orig: 62, 20
+  offset: 0, 0
+  index: -1
+l_hand2
+  rotate: false
+  xy: 94, 182
+  size: 40, 49
+  orig: 40, 49
+  offset: 0, 0
+  index: -1
+l_leg1
+  rotate: false
+  xy: 95, 127
+  size: 31, 53
+  orig: 31, 53
+  offset: 0, 0
+  index: -1
+l_leg2
+  rotate: true
+  xy: 52, 117
+  size: 55, 41
+  orig: 55, 41
+  offset: 0, 0
+  index: -1
+nuqi1
+  rotate: false
+  xy: 2, 3
+  size: 55, 92
+  orig: 55, 92
+  offset: 0, 0
+  index: -1
+nuqi2
+  rotate: true
+  xy: 174, 399
+  size: 63, 97
+  orig: 63, 97
+  offset: 0, 0
+  index: -1
+nuqi3
+  rotate: false
+  xy: 70, 308
+  size: 84, 91
+  orig: 84, 91
+  offset: 0, 0
+  index: -1
+r_hand1
+  rotate: false
+  xy: 324, 396
+  size: 21, 66
+  orig: 21, 66
+  offset: 0, 0
+  index: -1
+r_hand2
+  rotate: false
+  xy: 446, 467
+  size: 58, 37
+  orig: 58, 37
+  offset: 0, 0
+  index: -1
+r_leg1
+  rotate: true
+  xy: 347, 388
+  size: 38, 42
+  orig: 38, 42
+  offset: 0, 0
+  index: -1
+r_leg2
+  rotate: true
+  xy: 347, 428
+  size: 20, 62
+  orig: 20, 62
+  offset: 0, 0
+  index: -1
+smoke
+  rotate: false
+  xy: 52, 233
+  size: 77, 34
+  orig: 77, 34
+  offset: 0, 0
+  index: -1
+tou
+  rotate: false
+  xy: 70, 401
+  size: 102, 103
+  orig: 102, 103
+  offset: 0, 0
+  index: -1
+toujin1
+  rotate: false
+  xy: 332, 472
+  size: 112, 32
+  orig: 112, 32
+  offset: 0, 0
+  index: -1
+zhui
+  rotate: false
+  xy: 52, 174
+  size: 40, 57
+  orig: 40, 57
+  offset: 0, 0
+  index: -1

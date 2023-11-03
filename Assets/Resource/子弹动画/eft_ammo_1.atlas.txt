@@ -1,0 +1,55 @@
+
+eft_ammo_1.png
+size: 1024,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1_ arms_01
+  rotate: true
+  xy: 486, 55
+  size: 32, 98
+  orig: 32, 98
+  offset: 0, 0
+  index: -1
+arrow
+  rotate: true
+  xy: 194, 20
+  size: 26, 176
+  orig: 26, 176
+  offset: 0, 0
+  index: -1
+box
+  rotate: false
+  xy: 2, 2
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+light
+  rotate: true
+  xy: 194, 48
+  size: 39, 191
+  orig: 39, 191
+  offset: 0, 0
+  index: -1
+line
+  rotate: true
+  xy: 2, 89
+  size: 18, 578
+  orig: 18, 578
+  offset: 0, 0
+  index: -1
+qizhao
+  rotate: true
+  xy: 2, 5
+  size: 82, 190
+  orig: 82, 190
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 387, 6
+  size: 97, 81
+  orig: 97, 81
+  offset: 0, 0
+  index: -1
