@@ -5,27 +5,39 @@ using UnityEngine;
 using Spine;
 public class Unit : MonoBehaviour
 {
-    //状态机
-   private FSM fsm;
-   public SkeletonGraphic sgp;
 
+    [Header("属性")]
+    public int startAttack;
+    public int startHp;
+    public float startHeight;
+    public float startWidth;
+    public float attackRange;
+
+    //状态机
+    protected FSM fsm;
+    protected SkeletonGraphic sgp;
     private void Awake()
     {
         //组件获取
         sgp = this.GetComponent<SkeletonGraphic>();
+        Init();
+    }
+
+    public virtual void Init()
+    {
 
         EnemyHold enemyHoldState = new EnemyHold();
-        fsm = new FSM(this.gameObject,State.EnemyHold,enemyHoldState);
+        fsm = new FSM(this.gameObject, State.EnemyHold, enemyHoldState);
 
         EnemyMove enemyMoveState = new EnemyMove();
-        fsm.AddState(State.EnemyMove,enemyMoveState);
+        fsm.AddState(State.EnemyMove, enemyMoveState);
 
         FSMTransition EnemyHoldToMove = new FSMTransition(State.EnemyHold, State.EnemyMove);
         enemyHoldState.AddTransition(EnemyHoldToMove);
-        
-        FSMConditionBool enemyHoldToMoveCondition1 = new FSMConditionBool("Walk",FSMConditionBool.BoolCondition.True);
+
+        FSMConditionBool enemyHoldToMoveCondition1 = new FSMConditionBool("Walk", FSMConditionBool.BoolCondition.True,false);
         EnemyHoldToMove.AddCondition(enemyHoldToMoveCondition1);
-        fsm.allConditionsDic.Add(enemyHoldToMoveCondition1.ConditionName, enemyHoldToMoveCondition1);
+        
     }
     private void Start()
     {

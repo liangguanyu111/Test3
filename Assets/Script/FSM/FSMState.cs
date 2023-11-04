@@ -13,7 +13,11 @@ public enum State
     EnemyNormalMove =3,
     EnemyMeleeAttack =4,
     EnemyBlinkMove =5,
-    EnemyShootAttack =6
+    EnemyShootAttack =6,
+    //Hero
+    HeroHold =7,
+    HeroAttack =8,
+    HeroMove = 9
 }
 
 
@@ -27,6 +31,7 @@ public abstract class FSMState :IFSMState
     private event Action m_OnExit;
 
     public List<FSMTransition> fsmTransitions;
+   
 
     public FSMState(Action onInit =null,Action onEnter =null,Action onExit =null)
     {
@@ -44,13 +49,14 @@ public abstract class FSMState :IFSMState
 
     public virtual void AddTransition(FSMTransition newTranstion)
     {
-        newTranstion.onTrans +=fsm.SwitchToState;
+        newTranstion.OnTrans +=fsm.SwitchToState;
         fsmTransitions.Add(newTranstion);
     }
 
     public virtual void AddTransition(State toFsmState, int weight = 0)
     {
         FSMTransition newTranstion = new FSMTransition(m_State, toFsmState, weight);
+        newTranstion.OnTrans += fsm.SwitchToState;
         fsmTransitions.Add(newTranstion);
     }
     public virtual void Update()
@@ -59,16 +65,14 @@ public abstract class FSMState :IFSMState
     }
     public virtual void Reason()
     {
-        foreach (var fsmTransition in fsmTransitions)
-        {
-            fsmTransition.Update();
-        }
+       
     }
 
     public virtual void OnEnter()
     {
         m_OnEnter?.Invoke();
     }
+
 
     public virtual void OnExit()
     {
@@ -84,7 +88,6 @@ public abstract class FSMState :IFSMState
     {
         
     }
-
 
 
 }

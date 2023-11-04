@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,22 +9,32 @@ public abstract class FSMCondition<T> : IFSMCondition
     private string conditionName;
     public T targetValue;
     public T currentValue;
+
+    public event Action OnConditionModify; //当条件的值发生变化，检测是否满足transition
     public string ConditionName { get => conditionName; set => conditionName = value; }
 
     public FSMCondition() { }
-    public FSMCondition(string conditionName,T targetValue)
-    {
-        this.conditionName = conditionName;
-        this.targetValue = targetValue;
-    }
     
     public virtual void SetTargetValue(T targetValue)
     {
         this.targetValue = targetValue;
+        OnConditionModify();
     }
 
     public virtual bool CheckCondition()
     {
         return false;
+    }
+
+
+    public void ConditionModify()
+    {
+        OnConditionModify?.Invoke();
+
+    }
+
+    public void AddConditionAction(Action check)
+    {
+        OnConditionModify += check;
     }
 }

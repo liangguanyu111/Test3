@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -31,6 +32,7 @@ public class FSM
             stateAdd.SetFsm(this);
         }
     }
+    
     public void Update()
     {
         currentState.Update();
@@ -41,12 +43,25 @@ public class FSM
     {
         if(initState!=null)
         {
-            initState.OnInit();
-            initState.OnEnter();
             currentState = initState;
+            currentState.OnInit();
+            currentState.OnEnter();
+        }
+
+
+        //添加所有的条件--优化
+        foreach (var state in allStatesDic)
+        {
+            foreach (var transition in state.Value.fsmTransitions)
+            {
+                foreach (var condition in transition.conditions)
+                {
+                    allConditionsDic.Add(condition.ConditionName, condition);
+                }
+            }
         }
     }
-
+   
     public void SwitchToState(State FromState, State ToState)
     {
         if (allStatesDic.ContainsKey(FromState)&&allStatesDic.ContainsKey(ToState))
@@ -71,7 +86,26 @@ public class FSM
 
     public void SetFloat(string conditionName,float value)
     {
+        if (allConditionsDic.ContainsKey(conditionName))
+        {
+            if (allConditionsDic[conditionName] is FSMConditionFloat)
+            {
+                FSMConditionFloat boolCondition = allConditionsDic[conditionName] as FSMConditionFloat;
+                boolCondition.SetTargetValue(value);
+            }
+        }
+    }
 
+    public void SetTrigger(string conditionName)
+    {
+        if (allConditionsDic.ContainsKey(conditionName))
+        {
+            if (allConditionsDic[conditionName] is FSMConditionTrigger)
+            {
+                FSMConditionTrigger triggerCondition = allConditionsDic[conditionName] as FSMConditionTrigger;
+                triggerCondition.SetTargetValue(true);
+            }
+        }
     }
     #endregion 
 }

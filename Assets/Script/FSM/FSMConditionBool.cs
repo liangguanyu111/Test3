@@ -12,16 +12,15 @@ public class FSMConditionBool : FSMCondition<bool>
 
     BoolCondition boolCondition;
     public FSMConditionBool() { }
-    public FSMConditionBool(string conditionName,BoolCondition boolCondition)
+
+    public FSMConditionBool(string conditionName, BoolCondition boolCondition,bool targetValue =false)
     {
         this.ConditionName = conditionName;
         this.boolCondition = boolCondition;
+        this.targetValue = targetValue;
     }
 
-    public override void SetTargetValue(bool targetValue)
-    {
-        base.SetTargetValue(targetValue);
-    }
+
 
     public override bool CheckCondition()
     {

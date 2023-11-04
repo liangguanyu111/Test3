@@ -9,10 +9,11 @@ public  class FSMTransition
     public State fromFsmState;
     public State toFsmState;
 
-    public event Action<State,State> onTrans;
+    public event Action<State,State> OnTrans;
 
     public int weight; //权重顺序
     public List<IFSMCondition> conditions;
+
 
     public FSMTransition(State fromFsmState, State toFsmState,int weight =0)
     {
@@ -24,17 +25,24 @@ public  class FSMTransition
 
     public void Update()
     {
-        foreach (var condition in conditions)
-        {
-            if(condition.CheckCondition())
-            {
-                onTrans?.Invoke(fromFsmState, toFsmState);
-            }
-        }
+       
     }
     
+    public void CheckAllCondition()
+    {
+        foreach (var condition in conditions)
+        {
+            if (!condition.CheckCondition())
+            {
+                return;
+            }
+        }
+        OnTrans?.Invoke(fromFsmState, toFsmState);
+    }
+
     public void AddCondition(IFSMCondition condition)
     {
         conditions.Add(condition);
+        condition.AddConditionAction(CheckAllCondition);
     }
 }
