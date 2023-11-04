@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Spine;
-public class Unit : MonoBehaviour
+public abstract class Unit : MonoBehaviour
 {
 
     [Header("属性")]
@@ -22,21 +22,8 @@ public class Unit : MonoBehaviour
         sgp = this.GetComponent<SkeletonGraphic>();
         Init();
     }
-
     public virtual void Init()
     {
-
-        EnemyHold enemyHoldState = new EnemyHold();
-        fsm = new FSM(this.gameObject, State.EnemyHold, enemyHoldState);
-
-        EnemyMove enemyMoveState = new EnemyMove();
-        fsm.AddState(State.EnemyMove, enemyMoveState);
-
-        FSMTransition EnemyHoldToMove = new FSMTransition(State.EnemyHold, State.EnemyMove);
-        enemyHoldState.AddTransition(EnemyHoldToMove);
-
-        FSMConditionBool enemyHoldToMoveCondition1 = new FSMConditionBool("Walk", FSMConditionBool.BoolCondition.True,false);
-        EnemyHoldToMove.AddCondition(enemyHoldToMoveCondition1);
         
     }
     private void Start()

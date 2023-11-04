@@ -497,7 +497,7 @@ GameObject:
   - component: {fileID: 1211521520}
   m_Layer: 0
   m_Name: Azhai
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -704,14 +704,13 @@ GameObject:
   - component: {fileID: 1922071729}
   - component: {fileID: 1922071731}
   - component: {fileID: 1922071730}
-  - component: {fileID: 1922071732}
   m_Layer: 0
-  m_Name: New SkeletonGraphic
-  m_TagString: Untagged
+  m_Name: Enemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1922071729
 RectTransform:
   m_ObjectHideFlags: 0
@@ -721,7 +720,7 @@ RectTransform:
   m_GameObject: {fileID: 1922071728}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 924417169}
@@ -729,8 +728,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 165, y: 0}
+  m_SizeDelta: {x: 120, y: 210}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1922071730
 MonoBehaviour:
@@ -778,25 +777,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1922071728}
   m_CullTransparentMesh: 0
---- !u!114 &1922071732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1922071728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60e0ae91953327441984ff7de6906be3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startAttack: 10
-  startHp: 40
-  startHeight: 1.2
-  startWidth: 2.1
-  attackRange: 1.5
-  runSpeed: 0
-  normalMoveSpeed: 0
 --- !u!1 &1956162259
 GameObject:
   m_ObjectHideFlags: 0

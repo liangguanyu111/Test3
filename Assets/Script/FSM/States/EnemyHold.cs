@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 [Serializable]
 public class EnemyHold : FSMState
 {
+    Enemy enemy;
     public EnemyHold(Action onInit = null, Action onEnter = null, Action onExit = null) : base(onInit, onEnter, onExit)
     {
         this.m_State = State.EnemyHold;
@@ -19,7 +17,6 @@ public class EnemyHold : FSMState
     public override void OnInit()
     {
         base.OnInit();
-        Debug.Log("EnemyHold Init!");
-        fsm.SetBool("Walk", true);
+        //fsm.SetBool("Walk", true);
     }
 }
