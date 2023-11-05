@@ -6,15 +6,17 @@ using Spine.Unity;
 
 public class EnemyMove : FSMState
 {
-    public EnemyMove(Action onInit = null, Action onEnter = null, Action onExit = null) : base(onInit, onEnter, onExit)
+    Enemy enemy;
+    public EnemyMove(Enemy enemy,Action onInit = null, Action onEnter = null, Action onExit = null)
     {
         this.m_State = State.EnemyMove;
+        this.enemy = enemy;
     }
     
     public override void OnEnter()
     {
         base.OnEnter();
-        Debug.Log("EnemyMove Enter");
-
+        
     }
+
 }

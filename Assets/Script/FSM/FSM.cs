@@ -8,27 +8,25 @@ using UnityEngine;
 public class FSM
 {
     public Dictionary<State, FSMState> allStatesDic;
-    public Dictionary<string, IFSMCondition> allConditionsDic;
+    public Dictionary<string, List<IFSMCondition>> allConditionsDic;
     public FSMState initState;
     private FSMState currentState;
 
-    public GameObject fsmObject;
 
-    public FSM(GameObject fsmObject,State initStateEnmu,FSMState InitState)
+    public FSM(FSMState InitState)
     {
         allStatesDic = new Dictionary<State, FSMState>();
-        allConditionsDic = new Dictionary<string, IFSMCondition>();
+        allConditionsDic = new Dictionary<string, List<IFSMCondition>>();
         this.initState = InitState;
-        this.fsmObject = fsmObject;
-        AddState(initStateEnmu, InitState);
+        currentState = this.initState;
+        AddState(InitState);
 
     }
-
-    public void AddState(State stateEnum,FSMState stateAdd)
+    public void AddState(FSMState stateAdd)
     {
-        if(!allStatesDic.ContainsKey(stateEnum))
+        if(!allStatesDic.ContainsKey(stateAdd.m_State))
         {
-            allStatesDic.Add(stateEnum,stateAdd);
+            allStatesDic.Add(stateAdd.m_State, stateAdd);
             stateAdd.SetFsm(this);
         }
     }
@@ -43,7 +41,6 @@ public class FSM
     {
         if(initState!=null)
         {
-            currentState = initState;
             currentState.OnInit();
             currentState.OnEnter();
         }
@@ -56,7 +53,14 @@ public class FSM
             {
                 foreach (var condition in transition.conditions)
                 {
-                    allConditionsDic.Add(condition.ConditionName, condition);
+                    if (allConditionsDic.ContainsKey(condition.ConditionName)&&allConditionsDic[condition.ConditionName].Count>0)
+                    {
+                        allConditionsDic[condition.ConditionName].Add(condition);
+                    }
+                    else
+                    {
+                        allConditionsDic.Add(condition.ConditionName, new List<IFSMCondition>() {condition});
+                    }
                 }
             }
         }
@@ -64,7 +68,7 @@ public class FSM
    
     public void SwitchToState(State FromState, State ToState)
     {
-        if (allStatesDic.ContainsKey(FromState)&&allStatesDic.ContainsKey(ToState))
+        if (allStatesDic.ContainsKey(FromState)&&allStatesDic.ContainsKey(ToState) && currentState.m_State == FromState)
         {
             currentState.OnExit();
             currentState = allStatesDic[ToState];
@@ -76,9 +80,9 @@ public class FSM
     {
         if(allConditionsDic.ContainsKey(conditionName))
         {
-            if (allConditionsDic[conditionName] is FSMConditionBool)
+            foreach (var condition in allConditionsDic[conditionName])
             {
-                FSMConditionBool boolCondition = allConditionsDic[conditionName] as FSMConditionBool;
+                FSMConditionBool boolCondition = condition as FSMConditionBool;
                 boolCondition.SetTargetValue(value);
             }
         }
@@ -88,10 +92,10 @@ public class FSM
     {
         if (allConditionsDic.ContainsKey(conditionName))
         {
-            if (allConditionsDic[conditionName] is FSMConditionFloat)
+            foreach (var condition in allConditionsDic[conditionName])
             {
-                FSMConditionFloat boolCondition = allConditionsDic[conditionName] as FSMConditionFloat;
-                boolCondition.SetTargetValue(value);
+               FSMConditionFloat floatCondition = condition as FSMConditionFloat;
+               floatCondition.SetTargetValue(value);
             }
         }
     }
@@ -100,12 +104,14 @@ public class FSM
     {
         if (allConditionsDic.ContainsKey(conditionName))
         {
-            if (allConditionsDic[conditionName] is FSMConditionTrigger)
+            foreach (var condition in allConditionsDic[conditionName])
             {
-                FSMConditionTrigger triggerCondition = allConditionsDic[conditionName] as FSMConditionTrigger;
+                FSMConditionTrigger triggerCondition = condition as FSMConditionTrigger;
                 triggerCondition.SetTargetValue(true);
             }
         }
     }
+
+
     #endregion 
 }

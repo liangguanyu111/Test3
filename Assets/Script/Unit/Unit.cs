@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Spine;
-public abstract class Unit : MonoBehaviour
+public abstract class Unit 
 {
 
     [Header("属性")]
@@ -15,27 +15,27 @@ public abstract class Unit : MonoBehaviour
 
     //状态机
     protected FSM fsm;
-    protected SkeletonGraphic sgp;
-    private void Awake()
+    public SkeletonGraphic sgp;
+    public GameObject unitObj;
+
+
+
+    public Unit(GameObject unitObj)
     {
-        //组件获取
-        sgp = this.GetComponent<SkeletonGraphic>();
+        Debug.Log("Unit Init");
+        sgp = unitObj.GetComponent<SkeletonGraphic>();
         Init();
     }
+
     public virtual void Init()
-    {
-        
-    }
-    private void Start()
     {
         fsm.Init();
     }
 
-    private void Update()
+    public void Update()
     {
         fsm.Update();
     }
-
     public void PlayAnimation(string animName,bool loop =true)
     {
         if(sgp!=null)
@@ -43,4 +43,6 @@ public abstract class Unit : MonoBehaviour
             sgp.AnimationState.SetAnimation(0, animName, loop);
         }
     }
+
+  
 }

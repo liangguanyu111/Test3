@@ -5,22 +5,27 @@ using UnityEngine;
 public class HeroMove : FSMState
 {
     Hero aZhai;
+    public HeroMove(Hero azhai)
+    {
+        this.m_State = State.HeroMove;
+        this.aZhai = azhai;
+    }
     public override void OnEnter()
     {
         base.OnEnter();
-        Debug.Log("Hero Move");
-        if(fsm.fsmObject.TryGetComponent<Hero>(out aZhai))
+        if(aZhai.AttackOrHide(aZhai.lastDiretion))
         {
-            if (aZhai != null)
-            {
-                aZhai.PlayAnimation("back", true);
-                aZhai.StartCoroutine(Move());
-            }
+            aZhai.PlayAnimation("atk1", false);
+            int timer = GameManager._instance.timerManager.AddTimer(MoveDone, 1f, 1f);
+        }
+        else
+        {
+            aZhai.PlayAnimation("back", false);
+            int timer = GameManager._instance.timerManager.AddTimer(MoveDone, 0.2f, 0.2f);
         }
     }
-    IEnumerator Move()
+    public void MoveDone()
     {
-        yield return new WaitForSecondsRealtime(0.2f);
         Debug.Log("Move Done");
         fsm.SetBool("Hold", true);
     }
