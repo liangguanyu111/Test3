@@ -8,8 +8,11 @@ public class GameManager : MonoBehaviour
     public static GameManager _instance;
     public CinemachineVirtualCamera vc;
     [Header("Manager")]
+    //定时器管理
     public TimerMgr timerManager;
+    //Unit管理器
     public UnitManager unitMgr;
+    //房间范围限制
     public Room room;
     private void Awake()
     {
@@ -32,7 +35,6 @@ public class GameManager : MonoBehaviour
     {
         vc.Follow = unitMgr.Azhai.unitObj.transform;
     }
-
     private void Update()
     {
         timerManager.Update();

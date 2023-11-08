@@ -37,7 +37,7 @@ public class ChapterData
     {
         for (int i = 0; i < wave.enemyAmount; i++)
         {
-            Enemy newEnemy = GameManager._instance.unitMgr.CreateEnemy(wave.enemyID);
+            Enemy newEnemy = GameManager._instance.unitMgr.GetEnemy(wave.enemyID);
             currentEenemies.Add(newEnemy);
             newEnemy.OnUnitDead += RemoveEnemy;
         }

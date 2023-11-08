@@ -31,7 +31,8 @@ public class EnemyShootHold : FSMState
     public override void OnInit()
     {
         base.OnInit();
-        enemy.PlayAnimation("appear1", false);
+        enemy.AdjustFaceDirection();
+        enemy.PlayAnimation("appear1", false, () => OnEnter()) ;
     }
 
 }

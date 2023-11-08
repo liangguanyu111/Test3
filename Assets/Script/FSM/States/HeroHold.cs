@@ -14,7 +14,7 @@ public class HeroHold : FSMState
     public override void OnInit()
     {
         base.OnInit();
-    
+        OnEnter();
     }
 
     public override void OnEnter()

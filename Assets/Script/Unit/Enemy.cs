@@ -17,6 +17,14 @@ public class Enemy : Unit
         Init();
     }
 
+    public void Reset()
+    {
+        currentHp = enemyConfig.initHp;
+        unitObj.GetComponent<BoxCollider2D>().enabled = true;
+        unitObj.GetComponent<Contact>().enabled = true;
+        fsm.Reset();
+    }
+
     public bool IsAzhaiInAttackRange()
     {
         return GetDistanceBetweenAzhai() <= enemyConfig.attackRange;
@@ -26,10 +34,18 @@ public class Enemy : Unit
     {
         return Vector3.Distance(unitObj.transform.position, Azhai.unitObj.transform.position);
     }
-
     public Vector2 moveDirection()
     {
         return new Vector2(Azhai.unitObj.transform.position.x - unitObj.transform.position.x , Azhai.unitObj.transform.position.y-  unitObj.transform.position.y ).normalized;
     }
 
+    //调整敌人的朝向
+    public void AdjustFaceDirection()
+    {
+        if (((unitObj.transform.position.x - Azhai.unitObj.transform.position.x) < 0 && !isRight)
+          || ((unitObj.transform.position.x - Azhai.unitObj.transform.position.x) > 0 && isRight))
+        {
+            Flip();
+        }
+    }
 }

@@ -5,7 +5,7 @@ using System.Reflection;
 
 class Timer
 {
-    public TimerMgr.TimerHandler callback;
+    public TimerMgr.TimerHandler callback;  //回调
     public float repeatRate; // 定时器触发的时间间隔;
     public float time; // 第一次触发要隔多少时间;
     public int repeatTime; // 你要触发的次数,-1代表一直重复

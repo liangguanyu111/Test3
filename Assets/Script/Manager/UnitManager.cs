@@ -8,13 +8,17 @@ public class UnitManager
 {
     public Hero Azhai;
     public Transform unitTransform;
-    public List<Unit> allUnits = new List<Unit>();
-
     public UnitConfigRoot unitConfigRoot;
+
+    public List<Unit> allUnits = new List<Unit>();
+    //怪物对象池，一个ID一个对象池
+    public Dictionary<int, ObjectPool<Enemy>> enemyObjectPool;
+
     public void Init()
     {
         unitConfigRoot = new UnitConfigRoot();
         unitTransform = GameObject.Find("Units").transform;
+        enemyObjectPool = new Dictionary<int, ObjectPool<Enemy>>();
         CreateAzhai();
     }
     public void Update()
@@ -32,6 +36,14 @@ public class UnitManager
         allUnits.Add(Azhai);
     }
 
+    public Enemy GetEnemy(int id)
+    {
+        if(!enemyObjectPool.ContainsKey(id))
+        {
+            enemyObjectPool.Add(id, new ObjectPool<Enemy>(()=>{return CreateEnemy(id);},ResetEnemy));  
+        }
+        return enemyObjectPool[id].New();
+    }
 
     public Enemy CreateEnemy(int id)
     {
@@ -55,7 +67,17 @@ public class UnitManager
 
     public void RemoveEnemy(Unit enemy)
     {
-        enemy.unitObj.SetActive(false);
+        enemy.OnUnitDead -= RemoveEnemy;
         allUnits.Remove(enemy);
+        enemy.unitObj.SetActive(false);
+        enemyObjectPool[(enemy as Enemy).enemyConfig.enemyID].ReturnObj(enemy as Enemy);
+    }
+    public void ResetEnemy(Enemy enemy)
+    {
+        enemy.Reset();
+        enemy.OnUnitDead += RemoveEnemy;
+        enemy.unitObj.transform.position = GameManager._instance.room.ReturnRandomPosInRoom();       
+        enemy.unitObj.SetActive(true);
+        allUnits.Add(enemy);
     }
 }

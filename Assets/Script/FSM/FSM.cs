@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+//Fsm->State->Transition->Condition
+//SetParamenters->Condition变化->转换条件是否满足->转换到哪个State
 public class FSM
 {
     public Dictionary<State, FSMState> allStatesDic;
 
     public Dictionary<string, FSMParameters<Boolean>> boolParameters;
     public Dictionary<string, FSMParameters<float>> floatParamerters;
+    private FSMState initState;
     private FSMState currentState;
 
     public FSM(FSMState InitState)
@@ -18,7 +22,8 @@ public class FSM
 
         boolParameters = new Dictionary<string, FSMParameters<bool>>();
         floatParamerters = new Dictionary<string, FSMParameters<float>>();
-        currentState = InitState;
+        this.initState = InitState;
+        currentState = this.initState;
         AddState(InitState);
 
     }
@@ -68,14 +73,17 @@ public class FSM
                 }
             }
         }
-
         if (currentState != null)
         {
             currentState.OnInit();
-            currentState.OnEnter();
         }
     }
-   
+    
+    public void Reset()
+    {
+        currentState = initState;
+        currentState.OnInit();
+    }
     public void SwitchToState(State FromState, State ToState)
     {
         if (allStatesDic.ContainsKey(FromState)&&allStatesDic.ContainsKey(ToState) && currentState.m_State == FromState)
@@ -84,6 +92,14 @@ public class FSM
             currentState = allStatesDic[ToState];
             currentState.OnEnter();         
         }
+    }
+
+    //直接转换到某个状态 例如死亡状态
+    public void SwitchToState(State ToState)
+    {
+        currentState.OnExit();
+        currentState = allStatesDic[ToState];
+        currentState.OnEnter();
     }
 
     #region 设置条件

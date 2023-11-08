@@ -13,15 +13,13 @@ public abstract class Unit
     [Header("属性")]
     public float currentHp;
 
-
     //状态机
     protected FSM fsm;
     public SkeletonAnimation sani;
     public GameObject unitObj;
+
     public bool isRight; //面朝方向是否向右
     public event Action<Unit> OnUnitDead;
-
-    private List<System.Action> mUnRegisterEventActions = new List<System.Action>();
     public Unit() { }
     public Unit(GameObject unitObj)
     {
@@ -32,6 +30,8 @@ public abstract class Unit
 
     public virtual void Init()
     {
+        UnitDead deadState = new UnitDead(this);
+        fsm.AddState(deadState);
         fsm.Init();
     }
 
@@ -52,8 +52,13 @@ public abstract class Unit
         currentHp = currentHp - damage >= 0 ? currentHp - damage : 0;
         if(currentHp<=0)
         {
-            OnUnitDead?.Invoke(this);
+            fsm.SwitchToState(State.UnitDead);
         }
+    }
+
+    public void UnitDead()
+    {
+        OnUnitDead?.Invoke(this);
     }
 
     #region 动画事件
@@ -85,7 +90,6 @@ public abstract class Unit
     }
 
     #endregion
-
 
     public void SetVelocity(float Speed, Vector2 velocity)
     {

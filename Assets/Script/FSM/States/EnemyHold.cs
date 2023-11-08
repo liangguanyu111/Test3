@@ -5,10 +5,12 @@ using System;
 public class EnemyHold : FSMState
 {
     Enemy enemy;
+
     public EnemyHold(Enemy enemy,Action onInit = null, Action onEnter = null, Action onExit = null)
     {
         this.m_State = State.EnemyHold;
         this.enemy = enemy;
+
     }
     public override void Update()
     {
@@ -24,7 +26,8 @@ public class EnemyHold : FSMState
     public override void OnInit()
     {
         base.OnInit();
-        enemy.PlayAnimation("appear1", false);
+        enemy.AdjustFaceDirection();
+        enemy.PlayAnimation("appear1", false, () => { OnEnter();});
     }
 
     public void CoolDown()

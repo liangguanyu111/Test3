@@ -21,7 +21,7 @@
 	"waves":
 	[
 	{ "waveInterval": 1, "enemyID": 2, "enemyAmount": 1 },
-	{ "waveInterval": 0, "enemyID": 1, "enemyAmount": 1 }
+	{ "waveInterval": 1, "enemyID": 1, "enemyAmount": 1 }
 	]
 }
 ]

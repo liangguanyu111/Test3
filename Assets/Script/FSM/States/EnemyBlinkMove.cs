@@ -18,6 +18,7 @@ public class EnemyBlinkMove : EnemyMove
     public void BlinkFinsh()
     {
         enemy.unitObj.transform.position = GameManager._instance.room.ReturnRandomPosAround(enemy.Azhai.unitObj.transform.position, 3, 5);
+        enemy.AdjustFaceDirection();
         enemy.PlayAnimation("jump2", false, () => { fsm.SetBool("Hold",true); });
     }
   

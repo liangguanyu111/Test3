@@ -18,7 +18,9 @@ public enum State
     //Hero
     HeroHold =8,
     HeroAttack =9,
-    HeroMove = 10
+    HeroMove = 10,
+
+    UnitDead =11
 }
 
 
@@ -32,15 +34,16 @@ public abstract class FSMState :IFSMState
     private event Action m_OnExit;
 
     public List<FSMTransition> fsmTransitions;
-   
 
+    //是否是第一次初始化
+    public bool isInit;
     public FSMState(Action onInit =null,Action onEnter =null,Action onExit =null)
     {
         this.m_OnInit = onInit;
         this.m_OnEnter = onEnter;
         this.m_OnExit = onExit;
-
         this.fsmTransitions = new List<FSMTransition>();
+        isInit = false;
     }
 
     public void SetFsm(FSM fsm)
@@ -72,6 +75,11 @@ public abstract class FSMState :IFSMState
     public virtual void OnEnter()
     {
         m_OnEnter?.Invoke();
+        if(isInit)
+        {
+            isInit = false;
+            return;
+        }
     }
 
 
@@ -83,6 +91,7 @@ public abstract class FSMState :IFSMState
     public virtual void OnInit()
     {
         m_OnInit?.Invoke();
+        isInit = true;
     }
 
     public virtual void OnUpdate()
