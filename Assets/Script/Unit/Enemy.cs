@@ -4,38 +4,32 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
-    public Unit azhai;
-
-    public Enemy(GameObject unitObj,Unit Azhai) : base(unitObj)
+    public Unit Azhai;
+    public EnemyConfig enemyConfig;
+    public Enemy() { }
+    public Enemy(GameObject unitObj,Unit Azhai,EnemyConfig enemyConfig) : base(unitObj)
     {
         this.unitObj = unitObj;
+        this.Azhai = Azhai;
+        this.enemyConfig = enemyConfig;
+        isRight = true;
+        currentHp = enemyConfig.initHp;
+        Init();
     }
 
-    public override void Init()
+    public bool IsAzhaiInAttackRange()
     {
-        EnemyHold enemyHoldState = new EnemyHold(this);
-        fsm = new FSM(enemyHoldState);
-
-        EnemyMove enemyMoveState = new EnemyMove(this);
-        fsm.AddState(enemyMoveState);
-        //Hold to Move的转换条件
-        FSMTransition EnemyHoldToMove = new FSMTransition(State.EnemyHold, State.EnemyMove);
-        enemyHoldState.AddTransition(EnemyHoldToMove);
-        FSMConditionBool enemyHoldToMoveCondition1 = new FSMConditionBool("Walk", FSMConditionBool.BoolCondition.True, false);
-        EnemyHoldToMove.AddCondition(enemyHoldToMoveCondition1);
-
-        //Move to Hold的转换条件
-        FSMTransition EnemyMoveToHold = new FSMTransition(State.EnemyMove, State.EnemyHold);
-        enemyMoveState.AddTransition(EnemyMoveToHold);
-        FSMConditionBool enemyMoveToHoldCondition = new FSMConditionBool("Walk", FSMConditionBool.BoolCondition.Fasle);
-        EnemyMoveToHold.AddCondition(enemyMoveToHoldCondition);
-
-        base.Init();
+        return GetDistanceBetweenAzhai() <= enemyConfig.attackRange;
     }
 
-
-    public float ReturnDistanceBetweenZhai()
+    public float GetDistanceBetweenAzhai()
     {
-        return Vector3.Distance(unitObj.transform.position, azhai.unitObj.transform.position);
+        return Vector3.Distance(unitObj.transform.position, Azhai.unitObj.transform.position);
     }
+
+    public Vector2 moveDirection()
+    {
+        return new Vector2(Azhai.unitObj.transform.position.x - unitObj.transform.position.x , Azhai.unitObj.transform.position.y-  unitObj.transform.position.y ).normalized;
+    }
+
 }

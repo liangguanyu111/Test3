@@ -1,0 +1,10 @@
+[{
+	"heroObjName":"Azhai",
+	"initAttack": 10,
+	"initHp": 100,
+	"width": 1.2,
+	"height": 2.1,
+	"attackRange": 1.5,
+	"attackSpeed": 40,
+	"normalSpeed": 10
+}]

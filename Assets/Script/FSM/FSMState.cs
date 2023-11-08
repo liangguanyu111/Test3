@@ -12,12 +12,13 @@ public enum State
     EnemyAttack =2,
     EnemyNormalMove =3,
     EnemyMeleeAttack =4,
-    EnemyBlinkMove =5,
-    EnemyShootAttack =6,
+    EnemyShootHold =5,
+    EnemyBlinkMove =6,
+    EnemyShootAttack =7,
     //Hero
-    HeroHold =7,
-    HeroAttack =8,
-    HeroMove = 9
+    HeroHold =8,
+    HeroAttack =9,
+    HeroMove = 10
 }
 
 

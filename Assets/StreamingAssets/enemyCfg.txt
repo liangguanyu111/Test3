@@ -1,0 +1,22 @@
+[{
+    "enemyID":1,
+	"enemyObjName":"EnemyMelee",
+	"initAttack": 10,
+	"initHp": 40,
+	"width": 1.2,
+	"height": 2.1,
+	"attackRange": 1.5,
+	"attackCoolDown": 1,
+	"moveSpeed": 3
+},
+ {
+    "enemyID":2,
+	"enemyObjName":"EnemyRange",
+	"initAttack": 20,
+	"initHp": 30,
+	"width": 1.2,
+	"height": 2.1,
+	"attackRange": 5,
+	"attackCoolDown": 1,
+	"moveSpeed": 0
+}]

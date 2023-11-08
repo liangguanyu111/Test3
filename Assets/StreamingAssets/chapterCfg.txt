@@ -1,0 +1,27 @@
+[
+{
+    "chapterID":1,
+	"totalWaves": 10,
+	"waves":
+	[
+	{ "waveInterval": 1, "enemyID": 1, "enemyAmount": 1 }
+	]
+},
+{
+    "chapterID":2,
+	"totalWaves": 10,
+	"waves":
+	[
+	{ "waveInterval": 1, "enemyID": 2, "enemyAmount": 1 }
+	]
+},
+{
+    "chapterID":3,
+	"totalWaves": 20,
+	"waves":
+	[
+	{ "waveInterval": 1, "enemyID": 2, "enemyAmount": 1 },
+	{ "waveInterval": 0, "enemyID": 1, "enemyAmount": 1 }
+	]
+}
+]

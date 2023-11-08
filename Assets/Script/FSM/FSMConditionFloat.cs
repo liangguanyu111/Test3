@@ -8,35 +8,32 @@ public class FSMConditionFloat : FSMCondition<float>
     public enum FloatCondition
     {
             Greater,
-            Less
+            Less,
+            NotEqual
     }
-    new float currentValue;
     FloatCondition condition;
-    public FSMConditionFloat() { }
-    public FSMConditionFloat(string conditionName, FloatCondition floatCondition, float targetValue ,float currentValue =0.0f)
+    private float targetValue;
+    public FSMConditionFloat(string conditionName, FloatCondition floatCondition, float targetValue)
     {
         this.ConditionName = conditionName;
         this.condition = floatCondition;
         this.targetValue = targetValue;
 
-        this.currentValue = currentValue;
     }
-
-    public override void SetTargetValue(float targetValue)
-    {
-        this.currentValue = targetValue;
-        ConditionModify();
-    }
-
-    public override bool CheckCondition()
+    public override void OnParametersChange(float value)
     {
         switch (condition)
         {
             case FloatCondition.Greater:
-                return currentValue>targetValue;
+                meetCondition = value > targetValue;
+                break;
             case FloatCondition.Less:
-                return currentValue<targetValue;
+                meetCondition = value < targetValue;
+                break;
+            case FloatCondition.NotEqual:
+                meetCondition = value != targetValue;
+                break;
         }
-        return false;
+        base.OnParametersChange(value);
     }
 }

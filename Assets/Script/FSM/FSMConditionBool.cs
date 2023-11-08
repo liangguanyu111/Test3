@@ -9,28 +9,26 @@ public class FSMConditionBool : FSMCondition<bool>
         True,
         Fasle
     }
-
+ 
     BoolCondition boolCondition;
-    public FSMConditionBool() { }
 
-    public FSMConditionBool(string conditionName, BoolCondition boolCondition,bool targetValue =false)
+    public FSMConditionBool(string conditionName, BoolCondition boolCondition)
     {
         this.ConditionName = conditionName;
         this.boolCondition = boolCondition;
-        this.targetValue = targetValue;
     }
 
-
-
-    public override bool CheckCondition()
+    public override void OnParametersChange(bool value)
     {
         switch(boolCondition)
         {
             case BoolCondition.True:
-                return targetValue==true;
+                meetCondition = value;
+                break;
             case BoolCondition.Fasle:
-                return targetValue == false;
+                meetCondition = !value;
+                break;
         }
-        return false;
+        base.OnParametersChange(value);
     }
 }

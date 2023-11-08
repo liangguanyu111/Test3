@@ -4,21 +4,21 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[Serializable]
 public class FSM
 {
     public Dictionary<State, FSMState> allStatesDic;
-    public Dictionary<string, List<IFSMCondition>> allConditionsDic;
-    public FSMState initState;
-    private FSMState currentState;
 
+    public Dictionary<string, FSMParameters<Boolean>> boolParameters;
+    public Dictionary<string, FSMParameters<float>> floatParamerters;
+    private FSMState currentState;
 
     public FSM(FSMState InitState)
     {
         allStatesDic = new Dictionary<State, FSMState>();
-        allConditionsDic = new Dictionary<string, List<IFSMCondition>>();
-        this.initState = InitState;
-        currentState = this.initState;
+
+        boolParameters = new Dictionary<string, FSMParameters<bool>>();
+        floatParamerters = new Dictionary<string, FSMParameters<float>>();
+        currentState = InitState;
         AddState(InitState);
 
     }
@@ -39,30 +39,40 @@ public class FSM
 
     public void Init()
     {
-        if(initState!=null)
-        {
-            currentState.OnInit();
-            currentState.OnEnter();
-        }
-
-
         //添加所有的条件--优化
         foreach (var state in allStatesDic)
         {
             foreach (var transition in state.Value.fsmTransitions)
             {
                 foreach (var condition in transition.conditions)
-                {
-                    if (allConditionsDic.ContainsKey(condition.ConditionName)&&allConditionsDic[condition.ConditionName].Count>0)
+                {                     
+                    if(condition is FSMConditionFloat)
                     {
-                        allConditionsDic[condition.ConditionName].Add(condition);
+                        if(!floatParamerters.ContainsKey(condition.ConditionName))
+                        {
+                            floatParamerters.Add(condition.ConditionName, new FSMParameters<float>());
+                        }
+                        floatParamerters[condition.ConditionName].OnParametersChange += (condition as FSMConditionFloat).OnParametersChange;
                     }
                     else
                     {
-                        allConditionsDic.Add(condition.ConditionName, new List<IFSMCondition>() {condition});
+                        if (!boolParameters.ContainsKey(condition.ConditionName))
+                        {
+                            boolParameters.Add(condition.ConditionName, new FSMParameters<bool>());
+                        }
+                        if(condition is FSMConditionBool)
+                        boolParameters[condition.ConditionName].OnParametersChange += (condition as FSMConditionBool).OnParametersChange;
+                        if(condition is FSMConditionTrigger)
+                        boolParameters[condition.ConditionName].OnParametersChange += (condition as FSMConditionTrigger).OnParametersChange;
                     }
                 }
             }
+        }
+
+        if (currentState != null)
+        {
+            currentState.OnInit();
+            currentState.OnEnter();
         }
     }
    
@@ -75,43 +85,39 @@ public class FSM
             currentState.OnEnter();         
         }
     }
+
     #region 设置条件
     public void SetBool(string conditionName,bool value)
     {
-        if(allConditionsDic.ContainsKey(conditionName))
+        if(boolParameters.ContainsKey(conditionName))
         {
-            foreach (var condition in allConditionsDic[conditionName])
-            {
-                FSMConditionBool boolCondition = condition as FSMConditionBool;
-                boolCondition.SetTargetValue(value);
-            }
+            boolParameters[conditionName].SetParametersValue(value);
         }
     }
 
     public void SetFloat(string conditionName,float value)
     {
-        if (allConditionsDic.ContainsKey(conditionName))
+        if (floatParamerters.ContainsKey(conditionName))
         {
-            foreach (var condition in allConditionsDic[conditionName])
-            {
-               FSMConditionFloat floatCondition = condition as FSMConditionFloat;
-               floatCondition.SetTargetValue(value);
-            }
+            floatParamerters[conditionName].SetParametersValue(value);
         }
     }
 
     public void SetTrigger(string conditionName)
     {
-        if (allConditionsDic.ContainsKey(conditionName))
+        if (boolParameters.ContainsKey(conditionName))
         {
-            foreach (var condition in allConditionsDic[conditionName])
-            {
-                FSMConditionTrigger triggerCondition = condition as FSMConditionTrigger;
-                triggerCondition.SetTargetValue(true);
-            }
+            boolParameters[conditionName].SetParametersValue(true);
         }
     }
 
-
+    public float GetFloat(string conditionName)
+    {
+        if(floatParamerters.ContainsKey(conditionName))
+        {
+            return floatParamerters[conditionName].value;
+        }
+        return 0.0f;
+    }
     #endregion 
 }

@@ -6,28 +6,15 @@ using static FSMConditionBool;
 //Trigger 状态完成之前不能被重复触发
 public class FSMConditionTrigger : FSMCondition<bool>
 {
-    bool countinouslyTrige;  //Trigger可以被重复触发吗
-    public bool triggerLock = false;
     public FSMConditionTrigger() { }
-
-    public FSMConditionTrigger(string conditionName,bool targetValue =false,bool countinouslyTrige = false)
+    public FSMConditionTrigger(string conditionName)
     {
         this.ConditionName = conditionName;
-        this.targetValue = targetValue;
-        this.countinouslyTrige = false;
     }
-
-    public override void SetTargetValue(bool targetValue)
+    public override void OnParametersChange(bool value)
     {
-       base.SetTargetValue(targetValue);
+        meetCondition = true;
+        base.OnParametersChange(value);
+        meetCondition = false;
     }
-    public override bool CheckCondition()
-    {
-        if(targetValue)
-        {
-            return true;
-        }
-        return false;
-    }
-
 }

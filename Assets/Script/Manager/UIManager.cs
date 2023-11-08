@@ -5,11 +5,12 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager _instance;
-    [Header("Unit Transform")]
-    public Transform unitTransform;
     [Header("阿宅操作按钮")]
     public Button leftAction;
     public Button rightAction;
+    [Header("UI")]
+    public GameObject levelTitle;
+
     private void Awake()
     {
         if(_instance ==null)
@@ -20,16 +21,25 @@ public class UIManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
     }
     private void Start()
     {
-        StartCoroutine(WaitForFrameEnd());
         leftAction.onClick.AddListener(GameManager._instance.unitMgr.Azhai.LeftAction);
         rightAction.onClick.AddListener(GameManager._instance.unitMgr.Azhai.RightAction);
+
+        BattleObject._instance.OnLevelStart += OnLevelStart;
     }
 
-    IEnumerator WaitForFrameEnd()
+    public void OnLevelStart(int levelIndex)
     {
-        yield return new WaitForFixedUpdate();
+        levelTitle.SetActive(true);
+        levelTitle.GetComponentInChildren<Text>().text = "第" + levelIndex + "关";
+        StartCoroutine(LevelTitle());
+    }
+    IEnumerator LevelTitle()
+    {
+        yield return new WaitForSecondsRealtime(2.0f);
+        levelTitle.SetActive(false);
     }
 }
