@@ -11,4 +11,17 @@ public class Contact : MonoBehaviour
     {
         OnGetDamage?.Invoke(Damage);
     }
+
+    public void BeginContact()
+    {
+
+    }
+    public void StayContact()
+    {
+
+    }
+    public void EndContact()
+    {
+
+    }
 }

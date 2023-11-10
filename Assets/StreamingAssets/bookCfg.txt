@@ -1,0 +1,16 @@
+[
+{
+	"bookId":1,
+    "bookName":"吸血",
+	"bookSkill":"BloodSuck",
+	"bookDescription": "每普攻10次，恢复{value}的血量",
+	"levelEffect":[0.1,0.15,0.2,0.3]
+},
+{
+	"bookId":2,
+    "bookName":"钢筋铁骨",
+	"bookSkill":"MetalBones",
+	 "bookDescription": "血量上限增加{value}",
+	"levelEffect":[0.2,0.25,0.3,0.4]
+}
+]

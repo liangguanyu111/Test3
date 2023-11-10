@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
-
+using System;
 [SerializeField]
 public class UnitManager
 {
@@ -49,16 +50,10 @@ public class UnitManager
     {
         EnemyConfig enemyCfg = unitConfigRoot.GetEnemyCfgByID(id);
         GameObject enenmyObj = GameObject.Instantiate(Resources.Load<GameObject>(enemyCfg.enemyObjName), GameManager._instance.room.ReturnRandomPosInRoom(), Quaternion.identity, unitTransform);
-        Enemy newEnemy = new Enemy();
-        switch (enemyCfg.enemyObjName)
-        {
-            case "EnemyMelee":
-                newEnemy = new EnemyMelee(enenmyObj, Azhai, enemyCfg);
-                break;
-            case "EnemyRange":
-                newEnemy = new EnemyRange(enenmyObj, Azhai, enemyCfg);
-                break;
-        }
+
+        var assembly = System.Reflection.Assembly.Load(Assembly.GetExecutingAssembly().GetName());
+        Type type = assembly.GetType(enemyCfg.enemyObjName);
+        Enemy newEnemy = Activator.CreateInstance(type, enenmyObj, Azhai, enemyCfg) as Enemy;
 
         allUnits.Add(newEnemy);
         newEnemy.OnUnitDead += RemoveEnemy;

@@ -17,7 +17,6 @@ public class Hero : Unit
         currentHp = heroCfg.initHp;
         Init();
     }
-
     public override void Init()
     {
         HeroHold heroHoldState = new HeroHold(this);
@@ -70,6 +69,6 @@ public class Hero : Unit
     {
         int index = (attackCount % 6) + 1;
         string animationName = "atk" + index.ToString();
-       PlayAnimation(animationName, false, () => fsm.SetBool("Hold", true));
+        spineAniamtionHelper.PlayAnimation(animationName, false, () => fsm.SetBool("Hold", true));
     }
 }

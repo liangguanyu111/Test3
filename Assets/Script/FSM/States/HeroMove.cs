@@ -40,7 +40,7 @@ public class HeroMove : FSMState
             {
                 aZhai.Flip();
             }
-            aZhai.PlayAnimation("back", false);
+            aZhai.spineAniamtionHelper.PlayAnimation("back", false);
             int backFinish = GameManager._instance.timerManager.AddTimer(MoveDone,0.2f,0.2f);
         }
     }

@@ -18,7 +18,7 @@ public class EnemyShootHold : FSMState
     {
         base.OnEnter();
         enemy.SetVelocity(0, new Vector2(0, 0));
-        enemy.PlayAnimation("hold", true);
+        enemy.spineAniamtionHelper.PlayAnimation("hold", true);
         if (enemy.IsAzhaiInAttackRange())
         {
             int holdTimer = GameManager._instance.timerManager.AddTimer(() => { fsm.SetTrigger("Attack"); }, 1.0f, 1.0f);
@@ -32,7 +32,7 @@ public class EnemyShootHold : FSMState
     {
         base.OnInit();
         enemy.AdjustFaceDirection();
-        enemy.PlayAnimation("appear1", false, () => OnEnter()) ;
+        enemy.spineAniamtionHelper.PlayAnimation("appear1", false, () => { OnEnter(); enemy.SetHpBar(true); }) ;
     }
 
 }

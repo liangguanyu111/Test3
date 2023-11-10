@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class GameManager : MonoBehaviour
     public UnitManager unitMgr;
     //房间范围限制
     public Room room;
+    //子弹管理器
+    public BulletManager bulletManager;
+    //秘籍管理
+    public BookDataRoot bookDataRoot;
     private void Awake()
     {
         if(_instance==null)
@@ -28,6 +33,8 @@ public class GameManager : MonoBehaviour
         timerManager = new TimerMgr();
         unitMgr = new UnitManager();
         room = new Room(34, 6);
+        bulletManager = new BulletManager();
+        bookDataRoot = new BookDataRoot();
         unitMgr.Init();
     }
 

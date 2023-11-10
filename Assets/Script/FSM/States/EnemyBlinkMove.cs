@@ -12,14 +12,14 @@ public class EnemyBlinkMove : EnemyMove
     {
         Debug.Log("Blink Enter");
         base.OnEnter();
-        enemy.PlayAnimation("jump1",false, BlinkFinsh);
+        enemy.spineAniamtionHelper.PlayAnimation("jump1",false, BlinkFinsh);
     }
 
     public void BlinkFinsh()
     {
         enemy.unitObj.transform.position = GameManager._instance.room.ReturnRandomPosAround(enemy.Azhai.unitObj.transform.position, 3, 5);
         enemy.AdjustFaceDirection();
-        enemy.PlayAnimation("jump2", false, () => { fsm.SetBool("Hold",true); });
+        enemy.spineAniamtionHelper.PlayAnimation("jump2", false, () => { fsm.SetBool("Hold",true); });
     }
   
 }

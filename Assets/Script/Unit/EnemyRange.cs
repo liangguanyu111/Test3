@@ -41,4 +41,6 @@ public class EnemyRange : Enemy
 
         base.Init();
     }
+
+  
 }

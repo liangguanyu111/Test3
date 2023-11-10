@@ -7,7 +7,8 @@
 	"height": 2.1,
 	"attackRange": 1.5,
 	"attackCoolDown": 1,
-	"moveSpeed": 3
+	"moveSpeed": 3,
+	"bulletId" :2
 },
  {
     "enemyID":2,
@@ -18,5 +19,6 @@
 	"height": 2.1,
 	"attackRange": 5,
 	"attackCoolDown": 1,
-	"moveSpeed": 0
+	"moveSpeed": 0,
+	"bulletId" :3
 }]

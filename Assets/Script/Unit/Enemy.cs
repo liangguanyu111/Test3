@@ -48,4 +48,9 @@ public class Enemy : Unit
             Flip();
         }
     }
+
+    public Bullet NewBullet()
+    {
+        return GameManager._instance.bulletManager.GetBullet(enemyConfig.bulletId);
+    }
 }

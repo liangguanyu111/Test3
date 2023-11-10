@@ -13,7 +13,14 @@ public class EnemyMeleeAttack : EnemyAttack
     public override void OnEnter()
     {
         base.OnEnter();
-        enemy.PlayAnimation("atk1", false, () => { fsm.SetBool("Hold", true); });
+        enemy.spineAniamtionHelper.AddCustomEventHandler("event.atk.trigger", MeleeBullet);
+        enemy.spineAniamtionHelper.PlayAnimation("atk1", false, () => { fsm.SetBool("Hold", true); });
     }
 
+    public void MeleeBullet()
+    {
+        EnemyMeleeBullet newBullet = (enemy as EnemyMelee).NewBullet() as EnemyMeleeBullet;
+        //近战检测的位置应该更贴合实际
+        newBullet.DamageTo(enemy.unitObj.transform.position);
+    }
 }

@@ -14,6 +14,7 @@ public class HeroHold : FSMState
     public override void OnInit()
     {
         base.OnInit();
+        aZhai.SetHpBar(true);
         OnEnter();
     }
 
@@ -22,7 +23,7 @@ public class HeroHold : FSMState
         base.OnEnter();
         if(aZhai!=null)
         {
-            aZhai.PlayAnimation("hold", true);
+            aZhai.spineAniamtionHelper.PlayAnimation("hold", true);
         }
     }
 

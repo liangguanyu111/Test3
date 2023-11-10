@@ -27,7 +27,7 @@ public class EnemyNormalMove : EnemyMove
     public override void OnEnter()
     {
         base.OnEnter();
-        enemy.PlayAnimation("walk", true);
+        enemy.spineAniamtionHelper.PlayAnimation("walk", true);
     }
 }
 

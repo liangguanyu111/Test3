@@ -20,14 +20,14 @@ public class EnemyHold : FSMState
     {
         base.OnEnter();
         enemy.SetVelocity(0,new Vector2(0, 0));
-        enemy.PlayAnimation("hold", true);
+        enemy.spineAniamtionHelper.PlayAnimation("hold", true);
         int holdTimer = GameManager._instance.timerManager.AddTimer(() => { fsm.SetBool("Walk", true); }, 1.0f, 1.0f);
     }
     public override void OnInit()
     {
         base.OnInit();
         enemy.AdjustFaceDirection();
-        enemy.PlayAnimation("appear1", false, () => { OnEnter();});
+        enemy.spineAniamtionHelper.PlayAnimation("appear1", false, () => { OnEnter(); enemy.SetHpBar(true); });
     }
 
     public void CoolDown()

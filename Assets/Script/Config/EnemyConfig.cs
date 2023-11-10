@@ -13,5 +13,6 @@ public class EnemyConfig
     public float attackRange;
     public float attackCoolDown;
     public float moveSpeed;
+    public int bulletId;  //子弹ID
 
 }

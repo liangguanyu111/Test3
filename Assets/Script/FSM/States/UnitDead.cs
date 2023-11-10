@@ -17,8 +17,9 @@ public class UnitDead : FSMState
     {
         base.OnEnter();
         unit.SetVelocity(0, new Vector2(0, 0));
+        unit.SetHpBar(false);
         unit.unitObj.GetComponent<BoxCollider2D>().enabled = false;
         unit.unitObj.GetComponent<Contact>().enabled = false;
-        unit.PlayAnimation("dead2", false, () => { unit.UnitDead(); });
+        unit.spineAniamtionHelper.PlayAnimation("dead", false, () => { unit.UnitDead(); });
     }
 }
